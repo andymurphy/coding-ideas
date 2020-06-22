@@ -34,7 +34,8 @@ namespace CodingIdeas
             {
                 Idea idea = new Idea { Name = ideaName, Description = ideaDescription, DateAdded = DateTime.Now };
                 result = conn.Insert(idea);
-                StatusMessage = "Added " + ideaName + " successfully!"; // could be done with string.Format
+                // TODO Remove the StatusMEssage and make it modal
+                StatusMessage = "Added " + ideaName + " successfully!"; // could be done with string.Format like in the catch below
             }
             catch (Exception ex)
             {
@@ -51,6 +52,8 @@ namespace CodingIdeas
             try
             {
                 List<Idea> ideas = conn.Table<Idea>().ToList();
+                // TODO Can I format the datetime in here if I need to
+                
                 return ideas;
             }
             catch(Exception ex)
@@ -58,6 +61,19 @@ namespace CodingIdeas
                 StatusMessage = string.Format("Failed to retrieve data. {0}", ex.Message);
             }
             return new List<Idea>();
+        }
+        /// <summary>
+        /// Looks for an idea in the table with the matching Id
+        /// </summary>
+        /// <param name="idToFind">The Id of the Idea you want to find.</param>
+        /// <returns>The Idea object or null if not found.</returns>
+        public Idea FindItemById(int idToFind)
+        {
+            var ideaQuery = from i in conn.Table<Idea>()
+                        where i.Id == idToFind
+                        select i;
+            return ideaQuery.FirstOrDefault();
+
         }
     }
 }

@@ -19,31 +19,40 @@
         <Label Text="Idea:"
                HorizontalOptions="Start"
                FontSize="Medium"/>
-        <Entry x:Name="newIdeaName"/>
+        <Entry x:Name="newIdeaName"
+               Keyboard="Text"/>
         <Label Text="Description:"
                FontSize="Medium"/>
-        <Entry x:Name="newIdeaDescription"/>
+        <Entry x:Name="newIdeaDescription"
+               Keyboard="Text"/>
         <Button x:Name="newIdeaButton"
                 Text="Add Idea"
                 Clicked="NewIdeaButton_Clicked"/>
-        <!-- I should replace this with a modal with the message. -->
+        <!-- I think I should replace this with a modal with the message. -->
         <Label x:Name="statusMessage"
                FontSize="Medium"/>
         <Button x:Name="allIdeasButton"
                 Text="Show Ideas"
                 Clicked="AllIdeasButton_Clicked"/>
-        
+        <!-- TODO Can I add a click handler to each element in the listview to open a new page with the full idea.-->
         <ListView x:Name="ideasList">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" Padding="5">
-                            <Label Text="{Binding Id}"/>
+                        <StackLayout Orientation="Horizontal" Padding="5" >
+                            <Label Text="{Binding Id}"
+                                   Padding="3"/>
                             <Label Text="{Binding Name} "
                                    TextColor="Black"
-                                   FontAttributes="Bold"/>
-                            <Label Text="{Binding Description}"
-                                   TextColor="Blue"/>
+                                   FontAttributes="Bold"
+                                   Padding="3"
+                                   HorizontalOptions="StartAndExpand"/>
+                            <!--<Label Text="{Binding Description}"
+                                   TextColor="Blue"
+                                   HorizontalTextAlignment="Start"
+                                   Padding="3"/>-->
+                            <Button Text="Details" FontSize="Small" CommandParameter="{Binding Id}" Clicked="DetailsClicked" VerticalOptions="CenterAndExpand"/>
+                            
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

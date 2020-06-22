@@ -29,6 +29,8 @@ namespace CodingIdeas
             // Use the method from the idea repository class to add a new idea to the SQLite database
             App.ideaRepository.AddNewIdea(ideaName, ideaDescription);
             statusMessage.Text = App.ideaRepository.StatusMessage;
+            newIdeaName.Text = "";
+            newIdeaDescription.Text = "";
         }
 
         /// <summary>
@@ -44,6 +46,16 @@ namespace CodingIdeas
             List<Idea> allIdeas = App.ideaRepository.GetAllIdeas(); // Needed to add using CodingIdeas.Models up at the top.
             // Set the item source of the listview to be the ideas we got from the repository
             ideasList.ItemsSource = allIdeas;
+        }
+
+        private void DetailsClicked(object sender, EventArgs e)
+        {
+
+            var ideaItem = (Xamarin.Forms.Button)sender;
+            // Get the idea ID from the CommandParameter
+            int ideaId = (int)ideaItem.CommandParameter;
+            // Get the item from the database
+            var idea = App.ideaRepository.FindItemById(ideaId);
         }
     }
 }
